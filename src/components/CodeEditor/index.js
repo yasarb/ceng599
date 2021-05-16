@@ -1,14 +1,10 @@
 import React from 'react';
 import AceEditor from "react-ace";
 import './CodeEditor.scss';
-import Alg from 'algorithms/Calculator';
+import { Algorithm } from 'algorithms/ConvexHull';
 
 import "ace-builds/src-noconflict/mode-java";
 import "ace-builds/src-noconflict/theme-monokai";
-
-function onChange(newValue) {
-  console.log("change", newValue);
-}
 
 function CodeEditor() {
 
@@ -17,14 +13,12 @@ function CodeEditor() {
       <AceEditor
         mode="java"
         theme="monokai"
-        onChange={onChange}
-        name="UNIQUE_ID_OF_DIV"
+        name="code-editor"
         editorProps={{ $blockScrolling: true }}
-        value={Alg}
+        value={Algorithm}
         readOnly={true}
       />
     </div>
-
   );
 }
 
