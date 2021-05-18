@@ -9,7 +9,7 @@ import './index.scss';
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <BrowserRouter>
+      <BrowserRouter basename={process.env.PUBLIC_URL}>
         <Switch>
           <Route exact path="/:algorithm" component={App}/>
           <Route path="/" component={App}/>
