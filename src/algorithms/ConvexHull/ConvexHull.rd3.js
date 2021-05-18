@@ -49,7 +49,7 @@ function ConvexHullRenderer(props) {
           
         }
     }, 
-    [props.data, playing]);
+    [props.data, playing, dispatch]);
 
     return (
       <svg ref={d3Container} />

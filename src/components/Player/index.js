@@ -1,9 +1,9 @@
 import React from 'react';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlay, faPause } from '@fortawesome/free-solid-svg-icons'
-import './Player.scss';
 import { useDispatch, useSelector } from 'react-redux';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faPlay } from '@fortawesome/free-solid-svg-icons'
 import { togglePlay } from './Player.slice';
+import './Player.scss';
 
 const Player = () => {
   const dispatch = useDispatch();
