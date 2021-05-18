@@ -1,0 +1,37 @@
+@import "~common/styles/index";
+
+.player-container {
+  display:flex;
+  align-items: stretch;
+  justify-content: center;
+  min-height: 35px;
+  border-bottom: 1px solid rgb(36, 36, 36);
+  border-top-color: rgb(36, 36, 36);
+  border-right-color: rgb(36, 36, 36);
+  border-left-color: rgb(36, 36, 36);
+  cursor: pointer;
+
+  & button {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 0 10px;
+    margin: 0;
+
+    &:hover {
+      background-color: $theme-dark;
+    }
+
+    & svg {
+      margin-right: 5px;
+    }
+
+    &.btn-playing {
+      color: #00e676;
+      
+      &:hover {
+        cursor:not-allowed;
+      }
+    }
+  }
+}

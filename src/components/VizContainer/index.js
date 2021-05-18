@@ -2,14 +2,13 @@ import React, { useRef, useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import * as d3 from 'd3';
 import { AlgorithmService } from 'algorithms';
-import ConvexHullRenderer from 'algorithms/ConvexHull/ConvexHull.rd3';
+import Player from 'components/Player';
 
 function VizContainer() {
   const { activeAlgorithm } = useSelector(state => state.app);
   const comp = AlgorithmService.getAlgoRenderer(activeAlgorithm);
   const ref = useRef(null);
   const [vertices, setVertices] = useState([]);
-  const [renderer, setRenderer] = useState(null);
 
   useEffect(() => {
     if (ref.current) {
@@ -21,6 +20,7 @@ function VizContainer() {
 
   return (
     <div className="viz-container" ref={ref}>
+      <Player />
       { comp && React.createElement(comp, {data: vertices,})}
     </div>
   );
