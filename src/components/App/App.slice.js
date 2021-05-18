@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const appSlice = createSlice({
   name: 'app',
   initialState: {
-    activeAlgorithm: 'hello',
+    activeAlgorithm: null,
   },
   reducers: {
     updateAlgorithm(state, action) {

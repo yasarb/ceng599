@@ -8,7 +8,6 @@ function ConvexHullRenderer(props) {
 
   useLayoutEffect(
     () => {
-      console.log(props.data);
         if (props.data && props.data.length > 0 && d3Container.current) {
             const svg = d3.select(d3Container.current);
             svg.attr("transform", "scale(1,-1)")
