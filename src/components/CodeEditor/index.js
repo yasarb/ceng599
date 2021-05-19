@@ -9,7 +9,7 @@ import { AlgorithmService } from 'algorithms';
 
 function CodeEditor() {
   const { activeAlgorithm } = useSelector(state => state.app);
-  const [code, setCode] = useState('');
+  const [code, setCode] = useState('\n\n<-- Select an algorithm from the left to start.\n\n');
 
   useEffect(() => {
     setCode(AlgorithmService.getAlgoCode(activeAlgorithm));
