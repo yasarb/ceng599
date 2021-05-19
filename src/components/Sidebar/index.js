@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { AlgorithmService } from 'algorithms';
+import './Sidebar.scss'
 
 function Sidebar() {
   const { activeAlgorithm } = useSelector(state => state.app);
@@ -10,12 +11,15 @@ function Sidebar() {
   return (
     <div>
       <h1>
-        { activeAlgorithm }
+        { AlgorithmService.getAlgoTitle(activeAlgorithm) ?? 'Welcome' }
       </h1>
-      <ul>
+      <div className="sidebar-item-wrapper">
         {
-          algoNames.map(algo => <li key={algo.key}><Link to={`/${algo.key}`}>{algo.name}</Link></li>)
+          algoNames.map(algo => <Link to={`/${algo.key}`}><div className="sidebar-item" key={algo.key}>{algo.name}</div></Link>)
         }
+      </div>
+      <ul>
+        
       </ul>
     </div>
   );
