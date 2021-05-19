@@ -18,7 +18,7 @@
     padding: 0 10px;
     margin: 0;
 
-    &:hover {
+    &:hover:enabled {
       background-color: $theme-dark;
     }
 
@@ -32,6 +32,10 @@
       &:hover {
         cursor:not-allowed;
       }
+    }
+
+    &:hover:disabled {
+      cursor:not-allowed;
     }
   }
 }
