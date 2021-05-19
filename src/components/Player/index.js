@@ -7,6 +7,7 @@ import './Player.scss';
 
 const Player = () => {
   const dispatch = useDispatch();
+  const { activeAlgorithm } = useSelector(state => state.app);
   const { playing } = useSelector(state => state.player);
 
   const togglePlayStatus = () => {
@@ -21,7 +22,7 @@ const Player = () => {
             Playing
           </button>
         ) : (
-          <button class="btn btn-play" onClick={togglePlayStatus}>
+          <button class="btn btn-play" onClick={togglePlayStatus} disabled={!activeAlgorithm}>
             <FontAwesomeIcon icon={faPlay} />
             Play
           </button>
