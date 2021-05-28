@@ -4,10 +4,10 @@ import {default as ConvexHullRenderer } from './ConvexHull/ConvexHull.rd3';
 import {default as ConvexHullCode } from './ConvexHull/ConvexHull.code';
 
 const algoMapping = [
-  {
-    key: 'calculator',
-    name: 'Calculator'
-  },
+//  {
+//    key: 'calculator',
+//    name: 'Calculator'
+//  },
   {
     key: 'convex-hull',
     name: 'Convex Hull'
@@ -24,7 +24,7 @@ export const AlgorithmService = {
   },
   getAlgoCode: (algorithmKey) => {
     const mapping = {
-      'calculator': CalculatorCode,
+//      'calculator': CalculatorCode,
       'convex-hull': ConvexHullCode,
     };
 
@@ -32,7 +32,7 @@ export const AlgorithmService = {
   },
   getAlgoRenderer: (algorithmKey) => {
     const mapping = {
-      'calculator': CalculatorRenderer,
+//      'calculator': CalculatorRenderer,
       'convex-hull': ConvexHullRenderer,
     };
 
