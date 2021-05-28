@@ -1,5 +1,5 @@
-import {default as CalculatorRenderer } from './Calculator/Calculator.rd3';
-import {default as CalculatorCode } from './Calculator/Calculator.code';
+// import {default as CalculatorRenderer } from './Calculator/Calculator.rd3';
+// import {default as CalculatorCode } from './Calculator/Calculator.code';
 import {default as ConvexHullRenderer } from './ConvexHull/ConvexHull.rd3';
 import {default as ConvexHullCode } from './ConvexHull/ConvexHull.code';
 
