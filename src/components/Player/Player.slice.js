@@ -4,11 +4,11 @@ const playerSlice = createSlice({
   name: 'player',
   initialState: {
     playing: false,
-    speed: 1,
+    speed: 0.01, // 100 ms
     progress: 0,
   },
   reducers: {
-    updateSpeed(state, action) {
+    setSpeed(state, action) {
       state.speed = action.payload;
     },
     togglePlay(state, action) {
@@ -24,7 +24,7 @@ const playerSlice = createSlice({
 });
 
 export const { 
-  updateSpeed,
+  setSpeed,
   togglePlay,
   setProgress,
  } = playerSlice.actions;

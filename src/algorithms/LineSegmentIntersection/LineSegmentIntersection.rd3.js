@@ -8,7 +8,7 @@ import './LineSegmentIntersection.scss';
 
 function LineSegmentIntersectionRenderer(props) {
 
-  const { playing, progress } = useSelector(state => state.player);
+  const { playing, progress, speed } = useSelector(state => state.player);
   const dispatch = useDispatch();
 
   let LSIAnimateTimer;
@@ -51,12 +51,11 @@ function LineSegmentIntersectionRenderer(props) {
   useEffect(() => {
     if (playing) {
       LineSegmentIntersection.reset();
-      LSIAnimate(10, 100);
+      LSIAnimate(10, 1 / speed);
     }
-  }, [playing]);
+  }, [playing, speed]);
 
   useEffect(() => {
-    console.log("progress degisti: ", progress);
     if (!playing  && progress > 0) {
       const pixel = parseInt(progress / 100 * LineSegmentIntersection.bbox.xr);
       LineSegmentIntersection.reset();

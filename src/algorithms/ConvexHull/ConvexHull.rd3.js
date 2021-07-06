@@ -7,7 +7,7 @@ import './ConvexHull.scss';
 
 function ConvexHullRenderer(props) {
   
-  const { playing, progress } = useSelector(state => state.player);
+  const { playing, progress, speed } = useSelector(state => state.player);
   const dispatch = useDispatch();
 
   let ConvexHullAnimateTimer;
@@ -50,9 +50,9 @@ function ConvexHullRenderer(props) {
   useEffect(() => {
     if (playing) {
       ConvexHull.reset();
-      ConvexHullAnimate(1, 300);
+      ConvexHullAnimate(1, 1 / speed);
     }
-  }, [playing]);
+  }, [playing, speed]);
 
   useEffect(() => {
     if (!playing  && progress > 0) {

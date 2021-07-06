@@ -8,7 +8,7 @@ import Voronoi from './algo';
 
 function VoronoiRenderer(props) {
 
-  const { playing, progress } = useSelector(state => state.player);
+  const { playing, progress, speed } = useSelector(state => state.player);
   const dispatch = useDispatch();
 
   let VoronoiAnimateTimer;
@@ -51,9 +51,9 @@ function VoronoiRenderer(props) {
   useEffect(() => {
     if (playing) {
       Voronoi.reset();
-      VoronoiAnimate(10, 200);
+      VoronoiAnimate(10, 1 / speed);
     }
-  }, [playing]);
+  }, [playing, speed]);
 
   useEffect(() => {
     if (!playing) {
