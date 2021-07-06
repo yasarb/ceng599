@@ -1,6 +1,10 @@
 @import "~common/styles/index";
 
 .player-container {
+  .progress_bar {
+    width: 160px;
+  }
+  
   display:flex;
   align-items: stretch;
   justify-content: center;
