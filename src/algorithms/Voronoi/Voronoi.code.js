@@ -287,7 +287,6 @@ const Voronoi = `var Voronoi = {
 		this.NUM_DESTROYED_EDGES = 0;
 		this.cellsClosed = false;
 		this.queueInit();
-		// this.dumpBeachline();
 		this.draw();
 		},
 
@@ -836,7 +835,6 @@ const Voronoi = `var Voronoi = {
 	processQueueAll: function() {
 		this.processQueueN(999999999);
 		this.sweep = this.max(this.sweep,this.canvas.height);
-		this.dumpBeachline();
 		this.draw();
 		},
 
@@ -1463,63 +1461,6 @@ const Voronoi = `var Voronoi = {
 		ctx.strokeStyle='#000';
 		ctx.stroke();
 		},
-
-	dumpBeachline: function() {
-		var html='';
-		// various stats
-		html+='Total number of sites processed: '+this.NUM_SITES_PROCESSED;
-		html+='<br>Number of binary searches: '+this.BINARY_SEARCHES+'<br>Avg number of iterations per binary search: '+(this.BINARY_SEARCH_ITERATIONS/this.BINARY_SEARCHES).toFixed(2);
-		html+='<br>Number of parabolic cut calculations: '+this.PARABOLIC_CUT_CALCS+' out of '+this.ALL_PARABOLIC_CUT_CALCS+' total';
-		html+='<br>Average beachline size: '+(this.BEACHLINE_SIZE/this.sites.length).toFixed(2);
-		html+='<br>Average circle event queue size: '+(this.CIRCLE_QUEUE_SIZE/this.sites.length).toFixed(2);
-		html+='<br>Total number of cancelled circle events: '+this.NUM_VOID_EVENTS+' out of '+this.NUM_CIRCLE_EVENTS+' total ('+(this.NUM_VOID_EVENTS/this.NUM_CIRCLE_EVENTS*100).toFixed(0)+'%)';
-		html+='<br>Largest circle events queue size: '+this.LARGEST_CIRCLE_QUEUE_SIZE+' events';
-		html+='<br>Number of destroyed edges (outside the viewport): '+this.NUM_DESTROYED_EDGES+' out of a total of '+this.TOTAL_NUM_EDGES+' edges<br><br>';
-
-		// Beachline
-		var arc;
-		var edge;
-		var htmledge;
-		var nArcs=this.arcs.length;
-		html+='Beachline is composed of '+nArcs+' beach sections:<br>';
-		for (var iArc=0; iArc<nArcs; iArc++) {
-			arc=this.arcs[iArc];
-			// first show edge details, since it's always the edge on the
-			// left, thus the one shared with the beach section on the left
-			htmledge='edge: ';
-			edge=arc.edge;
-			if (edge) {
-				htmledge+='id='+edge.id;
-				if (edge.va) {htmledge+=', start=(x:<b>'+(edge.va.x).toFixed(1)+'</b>, y:<b>'+(edge.va.y).toFixed(1)+'</b>)';}
-				if (edge.vb) {htmledge+=', end=(x:<b>'+(edge.vb.x).toFixed(1)+'</b>, y:<b>'+(edge.vb.y).toFixed(1)+'</b>)';}
-				}
-			else {
-				htmledge+='none';
-				}
-			if (!edge) {
-				htmledge='<span style="margin-left:2em;color:#ccc">'+htmledge;
-				}
-			else if (!edge.va && !edge.vb) {
-				htmledge='<span style="margin-left:2em;color:#888">'+htmledge;
-				}
-			else {
-				//this.assert((edge.va === undefined) != (edge.vb === undefined));
-				htmledge='<span style="margin-left:2em;color:#444">'+htmledge;
-				}
-			html+=htmledge+'</span><br>';
-			// then display beach section details
-			var xleft=this.leftBreakPoint(iArc,this.sweep);
-			var xright=this.rightBreakPoint(iArc,this.sweep);
-			html+='<span style="color:'+(arc.isCollapsing()?'#800':'#080')+'">';
-			html+='xl=<b>'+xleft.toFixed(4)+'</b>, xr=<b>'+xright.toFixed(4)+'</b>, site={id:'+arc.site.id+', x:<b>'+arc.site.x+'</b>, y:<b>'+arc.site.y+'</b>}';
-			if (arc.isCollapsing()) {
-				html+=', collapsing at {x:<b>'+arc.circleEvent.x.toFixed(4)+'</b>, y:<b>'+arc.circleEvent.y.toFixed(4)+'</b>}';
-				}
-			html+='</span><br>';
-			}
-		var el=document.getElementById('console');
-		if (el) {el.innerHTML=html;}
-		}
 	};
 `;
 
