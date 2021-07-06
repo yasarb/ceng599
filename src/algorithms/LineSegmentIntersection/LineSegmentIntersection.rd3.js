@@ -59,7 +59,6 @@ function LineSegmentIntersectionRenderer(props) {
     console.log("progress degisti: ", progress);
     if (!playing  && progress > 0) {
       const pixel = parseInt(progress / 100 * LineSegmentIntersection.bbox.xr);
-      console.log("upTo: ", pixel);
       LineSegmentIntersection.reset();
       LineSegmentIntersection.processUpTo(pixel);
       LineSegmentIntersection.draw();
