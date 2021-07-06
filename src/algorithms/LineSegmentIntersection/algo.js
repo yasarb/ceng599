@@ -179,7 +179,7 @@ var LineSegmentIntersection = {
 			var segment = this.output.at(iSegment);
 
       if (segment.data.type === 'intersection') {
-        ctx.rect(segment.data.x-1, segment.data.y-1, 4, 4);
+        ctx.rect(segment.data.x-1, segment.data.y-1, 6, 6);
         ctx.globalAlpha = 1;
         ctx.fillStyle = '#f00';
         ctx.fill();
@@ -358,10 +358,10 @@ var LineSegmentIntersection = {
 
   Point: function (coords, type, segmentID) {
     this.segmentID = segmentID;
-      this.x = coords[0];
-      this.y = coords[1];
-      this.type = type;
-      this.segments = [];
+    this.x = coords[0];
+    this.y = coords[1];
+    this.type = type;
+    this.segments = [];
   },
 
   onSegment: function(a, b, c) {
