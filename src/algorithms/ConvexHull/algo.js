@@ -89,7 +89,7 @@ var ConvexHull = {
   generatePoints: function(n) {
     this.randomPoints(n);
 		this.reset();
-		// this.processQueueAll();
+		this.processAll();
   },
 
   randomPoints: function(n) {
@@ -231,7 +231,22 @@ var ConvexHull = {
   },
 
   processAll: function() {
-    this.processN(999999999);
+    for (let i = 0; i < this.steps.length; i++) {
+      const step = this.steps[i];
+
+      if (step.action === this.ACTION_ADD_EDGE) {
+        this.convexHull.push(step.data)
+      } else if (step.action === this.ACTION_REMOVE_LAST) {
+        this.convexHull.pop();
+      } else if (step.action === this.ACTION_RECOLOR_LAST) {
+        var lastEdge = this.convexHull.pop();
+        lastEdge.color = step.color;
+        this.convexHull.push(lastEdge);
+      }
+    }
+
+    this.draw();
+    this.lastStepId = this.steps.length;
   },
 };
 

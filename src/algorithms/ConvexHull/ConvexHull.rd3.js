@@ -1,7 +1,7 @@
 /* eslint-disable no-restricted-globals*/
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { togglePlay } from 'components/Player/Player.slice';
+import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import ConvexHull from './algo';
 import './ConvexHull.scss';
 
@@ -19,7 +19,7 @@ function ConvexHullRenderer(props) {
     ConvexHull.processUpTo(ConvexHull.lastStepId + ConvexHullAnimateId);
     // ConvexHull.draw();
 
-    // dispatch(setProgress(ConvexHull.sweepline.x * 100 / ConvexHull.bbox.xr));
+    dispatch(setProgress(ConvexHull.lastStepId * 100 / ConvexHull.steps.length));
 
     if (ConvexHull.lastStepId < ConvexHull.steps.length) {
       ConvexHullAnimateTimer = setTimeout(ConvexHullAnimateCallback, ConvexHullAnimateDelay);
@@ -45,7 +45,6 @@ function ConvexHullRenderer(props) {
 
   useEffect(() => {
     ConvexHull.init();
-    ConvexHull.reset();
   }, []);
 
   useEffect(() => {
@@ -54,6 +53,15 @@ function ConvexHullRenderer(props) {
       ConvexHullAnimate(1, 300);
     }
   }, [playing]);
+
+  useEffect(() => {
+    if (!playing  && progress > 0) {
+
+      const id = parseInt(progress / 100 * ConvexHull.steps.length);
+      ConvexHull.processUpTo(id);
+      ConvexHull.draw();
+    }
+  }, [progress]);
 
   return (
       <div>
