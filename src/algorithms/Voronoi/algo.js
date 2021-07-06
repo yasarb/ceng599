@@ -230,19 +230,19 @@ var Voronoi = {
 		// reset id generators
 		this.Site.prototype.idgenerator = 1;
 		this.Edge.prototype.idgenerator = 1;
-		},
+  },
 
 	addSite: function(x,y) {
 		this.sites.push(new this.Site(x,y));
 		this.reset();
 		this.processQueueAll();
-		},
+  },
 
 	generateSites: function(n) {
 		this.randomSites(n);
 		this.reset();
 		this.processQueueAll();
-		},
+  },
 
 	randomSites: function(n) {
 		var margin = this.canvasMargin;
@@ -253,7 +253,7 @@ var Voronoi = {
 		for (var i=0; i<n; i++) {
 			this.sites.push(new this.Site(this.round(xo+this.random()*dx),this.round(yo+this.random()*dy)));
 			}
-		},
+  },
 
 	parseSites: function(s) {
 		// split string into values, eliminate all NaNs
@@ -281,7 +281,7 @@ var Voronoi = {
 			}
 		this.reset();
 		this.processQueueAll();
-		},
+  },
 
 	parseLattices: function(s) {
 		// split string into values, eliminate all NaNs
@@ -318,7 +318,7 @@ var Voronoi = {
 			}
 		this.reset();
 		this.processQueueAll();
-		},
+  },
 
 	//
 	// Fortune algorithm methods
@@ -340,7 +340,7 @@ var Voronoi = {
 		this.queueInit();
 		// this.dumpBeachline();
 		this.draw();
-		},
+  },
 
 	// calculate the left break point of a particular beach section,
 	// given a particular sweep line
@@ -350,7 +350,7 @@ var Voronoi = {
 		if (site.y == sweep) {return site.x;}
 		if (iarc === 0) {return -Infinity;}
 		return arc.leftParabolicCut(this.arcs[iarc-1].site,sweep);
-		},
+  },
 
 	// calculate the right break point of a particular beach section,
 	// given a particular directrix
@@ -360,7 +360,7 @@ var Voronoi = {
 			}
 		var site = this.arcs[iarc].site;
 		return site.y == sweep ? site.x : Infinity;
-		},
+  },
 
 	// find the index where a new site should be inserted.
 	// the index will be immediately following the left beach section.
@@ -394,7 +394,7 @@ var Voronoi = {
 			return i;
 			}
 		return l;
-		},
+  },
 
 	// INFO: Chromium profiling shows this a hot spot
 	findDeletionPoint: function(x, sweep) {
@@ -429,7 +429,7 @@ var Voronoi = {
 			return i;
 			}
 		//this.assert(false);
-		},
+  },
 
 	// this create and add an edge to internal collection, and also create
 	// two halfedges which are added to each site's counterclockwise array
@@ -483,6 +483,7 @@ var Voronoi = {
 			edge.va = vertex;
 			}
 		},
+
 	setEdgeEndpoint: function(edge, lSite, rSite, vertex) {
 		this.setEdgeStartpoint(edge,rSite,lSite,vertex);
 		},
@@ -878,11 +879,11 @@ var Voronoi = {
 		while (n > 0 && !this.queueIsEmpty()) {
 			this.processQueueOne();
 			n -= 1;
-			}
+    }
 		if (this.queueIsEmpty()) {
 			this.sweep = this.max(this.sweep,this.canvas.height);
-			}
-		},
+    }
+  },
 
 	processQueueAll: function() {
 		this.processQueueN(999999999);
@@ -1024,7 +1025,7 @@ var Voronoi = {
 		edge.va = va;
 		edge.vb = vb;
 		return true;
-		},
+  },
 
 	// line-clipping code taken from:
 	// The Liang-Barsky line clipping algorithm in a nutshell!
@@ -1584,7 +1585,7 @@ function VoronoiAnimateCallback() {
 	Voronoi.draw();
 	if (!Voronoi.queueIsEmpty() || Voronoi.sweep < Voronoi.bbox.yb) {
 		VoronoiAnimateTimer = setTimeout(VoronoiAnimateCallback,VoronoiAnimateDelay);
-		}
+  }
 	else {
 		Voronoi.dumpBeachline();
 		}
@@ -1596,7 +1597,7 @@ function VoronoiAnimate(px,ms) {
 		}
 	if (Voronoi.queueIsEmpty()) {
 		Voronoi.reset();
-		}
+  }
 	// sanitize parameters
 	VoronoiAnimatePixels = self.isNaN(px) ? 5 : Voronoi.max(px,1);
 	// 10ms looks crazy but Chromium is lightning fast
