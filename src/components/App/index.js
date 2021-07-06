@@ -18,7 +18,7 @@ function App(props) {
     <div className="App">
       <SplitPane split="vertical" defaultSize="15%" allowResize={false}>
         <Sidebar />
-        <SplitPane split="vertical" defaultSize="50%">
+        <SplitPane split="vertical" defaultSize="45%">
           <EditorContainer />
           <VizContainer />
         </SplitPane>
