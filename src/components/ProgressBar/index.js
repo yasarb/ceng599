@@ -10,6 +10,10 @@ function ProgressBar(props) {
   }
 
   const handleMouseMove = (e) => {
+    if (e.target.id !== 'progressBar') {
+      return;
+    }
+
     const { left } = e.target.getBoundingClientRect();
     const { offsetWidth } = e.target;
     const { onChangeProgress } = props;
@@ -27,7 +31,7 @@ function ProgressBar(props) {
   const { className, total, current } = props;
 
   return (
-    <div className={className} onMouseDown={handleMouseDown}>
+    <div id="progressBar" className={className} onMouseDown={handleMouseDown}>
       <div className='active' style={{ width: `${current / total * 100}%` }} />
       <div className='label'>
         <span className='current'>{current}</span> / {total}
