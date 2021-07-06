@@ -16,7 +16,9 @@ const Player = () => {
   };
 
   const handleChangeProgress = (progress) => {
-    dispatch(setProgress(progress));
+    if (!playing) {
+      dispatch(setProgress(progress));
+    }
   }
 
   return (
