@@ -9,9 +9,11 @@ function Sidebar() {
   
   return (
     <div>
-      <h1>
-        { AlgorithmService.getAlgoTitle(activeAlgorithm) ?? 'Welcome' }
-      </h1>
+      <div className={'header'}>
+        <h1>
+          { AlgorithmService.getAlgoTitle(activeAlgorithm) ?? 'Welcome' }
+        </h1>
+      </div>
       <div className="sidebar-item-wrapper">
         {
           algoNames.map(algo => <a href={`/${algo.key}`} key={algo.key}><div className="sidebar-item" key={algo.key}>{algo.name}</div></a>)
