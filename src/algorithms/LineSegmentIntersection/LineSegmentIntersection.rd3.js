@@ -4,7 +4,6 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import LineSegmentIntersection from './algo';
-import './LineSegmentIntersection.scss';
 
 function LineSegmentIntersectionRenderer(props) {
 
