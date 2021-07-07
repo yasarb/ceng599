@@ -2,7 +2,7 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import InputRange from 'react-input-range';
-import { faPlay } from '@fortawesome/free-solid-svg-icons'
+import { faPlay, faChevronLeft, faChevronRight } from '@fortawesome/free-solid-svg-icons'
 import { setProgress, setSpeed, togglePlay } from './Player.slice';
 import ProgressBar from 'components/ProgressBar';
 import './Player.scss';
@@ -28,6 +28,18 @@ const Player = () => {
     }
   }
 
+  const handlePrev = () => {
+    if (progress > 0) {
+      dispatch(setProgress(progress - 1));
+    }
+  }
+
+  const handleNext = () => {
+    if (progress < 100) {
+      dispatch(setProgress(progress + 1));
+    }
+  }
+
   return (
     <div className="player-container">
       {
@@ -43,12 +55,18 @@ const Player = () => {
         )
       }
       
+      <button className="btn" primary disabled={!progress} onClick={handlePrev}>
+        <FontAwesomeIcon icon={faChevronLeft} />
+      </button>
       <ProgressBar 
         className='progress_bar' 
         current={progress} 
         total={100}
         onChangeProgress={progress => handleChangeProgress(progress)}
       />
+      <button className="btn" primary disabled={progress >= 100} onClick={handleNext}>
+        <FontAwesomeIcon icon={faChevronRight} />
+      </button>
       <div className={'speed'}>
         Speed
         <InputRange
