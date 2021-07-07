@@ -18,7 +18,7 @@ function CodeEditor() {
   return (
     <div className="code-editor">
       <AceEditor
-        mode="java"
+        mode="javascript"
         theme="monokai"
         name="code-editor"
         editorProps={{ $blockScrolling: true }}
