@@ -280,75 +280,6 @@ var Voronoi = {
     }
   },
 
-  parseSites: function(s) {
-    // split string into values, eliminate all NaNs
-    var values = s.split(/[^0-9-.+e]+/);
-    var nValues = values.length;
-    var iValue = 0;
-    while (iValue < nValues) {
-      if (this.isNaN(parseFloat(values[iValue]))) {
-        values.splice(iValue, 1);
-        nValues--;
-      } else {
-        iValue++;
-      }
-    }
-    // number of x,y pairs
-    var nPairs = values.length & 0xfffe;
-    var x;
-    var y;
-    for (var iPair = 0; iPair < nPairs; iPair += 2) {
-      x = parseFloat(values[iPair]);
-      y = parseFloat(values[iPair + 1]);
-      if (!this.isNaN(x) && !this.isNaN(y)) {
-        this.sites.push(new this.Site(x, y));
-      }
-    }
-    this.reset();
-    this.processQueueAll();
-  },
-
-  parseLattices: function(s) {
-    // split string into values, eliminate all NaNs
-    var values = s.split(/[^0-9-.+e]+/);
-    var nValues = values.length;
-    var iValue = 0;
-    while (iValue < nValues) {
-      if (this.isNaN(self.parseFloat(values[iValue]))) {
-        values.splice(iValue, 1);
-        nValues--;
-      } else {
-        iValue++;
-      }
-    }
-    // number of quadruplets
-    var nQuads = values.length & 0xfffc;
-    var w = this.canvas.width;
-    var h = this.canvas.height;
-    var offx;
-    var offy;
-    var dx;
-    var dy;
-    for (var iQuad = 0; iQuad < nQuads; iQuad += 4) {
-      offx = self.parseFloat(values[iQuad]);
-      offy = self.parseFloat(values[iQuad + 1]);
-      dx = self.parseFloat(values[iQuad + 2]);
-      dy = self.parseFloat(values[iQuad + 3]);
-      if (!this.isNaN(offx) && !this.isNaN(offy) && !this.isNaN(dx) && !this.isNaN(dy)) {
-        for (var y = offy; y < (h + dy); y += dy) {
-          for (var x = offx; x <= (w + dx); x += dx) {
-            this.sites.push(new this.Site(x, y));
-          }
-        }
-      }
-    }
-    this.reset();
-    this.processQueueAll();
-  },
-
-  //
-  // Fortune algorithm methods
-  //
   reset: function() {
     this.NUM_SITES_PROCESSED = 0;
     this.BINARY_SEARCHES = 0;
@@ -365,6 +296,11 @@ var Voronoi = {
     this.cellsClosed = false;
     this.queueInit();
     this.draw();
+  },
+
+  clearCanvas: function() {
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 
   // calculate the left break point of a particular beach section,

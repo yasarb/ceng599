@@ -1,16 +1,16 @@
 /* eslint-disable no-restricted-globals*/
 
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import Voronoi from './algo';
+import Toolbar from 'components/Toolbar';
 
 
 function VoronoiRenderer(props) {
 
   const { playing, progress, speed } = useSelector(state => state.player);
   const dispatch = useDispatch();
-  const canvas = useRef(null);
 
   let VoronoiAnimateTimer;
   let VoronoiAnimatePixels;
@@ -45,8 +45,8 @@ function VoronoiRenderer(props) {
   }
 
   useEffect(() => {
-    Voronoi.init(canvas.current);
-    Voronoi.reset(canvas.current);
+    Voronoi.init();
+    Voronoi.reset();
   }, []);
 
   useEffect(() => {
@@ -63,11 +63,38 @@ function VoronoiRenderer(props) {
       Voronoi.draw();
     }
   }, [progress]);
+  
+  const handleRandom = () => {
+    Voronoi.clearCanvas();
+    dispatch(setProgress(0));
+    Voronoi.sites = [];
+    Voronoi.init();
+    Voronoi.reset();
+  }
+
+  const handleReset = () => {
+    Voronoi.clearCanvas();
+    dispatch(setProgress(0));
+    Voronoi.reset();
+  }
+
+  const handleFreehand = () => {
+
+  }
 
   return (
-      <div>
-        <canvas ref={canvas} id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width={Voronoi.DEFAULT_CANVAS_WIDTH} height={Voronoi.DEFAULT_CANVAS_HEIGHT} />
+    <React.Fragment>
+      <Toolbar
+        disabled={playing}
+        onReset={handleReset}
+        onRandom={handleRandom}
+        onFreehand={handleFreehand}
+      />
+        <div>
+        <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width={Voronoi.DEFAULT_CANVAS_WIDTH} height={Voronoi.DEFAULT_CANVAS_HEIGHT} />
       </div>
+    </React.Fragment>
+
   );
 }
 
