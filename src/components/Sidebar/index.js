@@ -15,13 +15,11 @@ function Sidebar() {
         </h1>
       </div>
       <div className="sidebar-item-wrapper">
+        <a href={`/`} key={'home'}><div className="sidebar-item" key={'home'}>Home</div></a>
         {
           algoNames.map(algo => <a href={`/${algo.key}`} key={algo.key}><div className="sidebar-item" key={algo.key}>{algo.name}</div></a>)
         }
       </div>
-      <ul>
-        
-      </ul>
     </div>
   );
 }
