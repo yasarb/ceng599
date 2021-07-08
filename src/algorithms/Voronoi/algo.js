@@ -1316,7 +1316,7 @@ var Voronoi = {
         x = e.offsetX;
         y = e.offsetY;
       }
-      me.addPoint(x, y);
+      me.addSite(x, y);
     };
   },
 
