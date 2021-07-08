@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import styles from './ProgressBar.scss';
+import React from 'react';
+import './ProgressBar.scss';
 
 function ProgressBar(props) {
 
