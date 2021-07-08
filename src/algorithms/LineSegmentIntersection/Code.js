@@ -1,4 +1,5 @@
-const code = `import Tree from 'avl';
+module.exports = {
+  content: `import Tree from 'avl';
 
 var LineSegmentIntersection = {
   EPS: 1E-9,
@@ -617,6 +618,5 @@ var LineSegmentIntersection = {
   },
 };
 
-export default LineSegmentIntersection;`;
-
-export default code;
+export default LineSegmentIntersection;`
+};

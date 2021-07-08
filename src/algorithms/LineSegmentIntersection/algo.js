@@ -1,4 +1,5 @@
-/* eslint-disable no-restricted-globals*/
+/* eslint-disable no-restricted-globals */
+/* eslint-disable no-unused-vars */
 
 import Tree from 'avl';
 
