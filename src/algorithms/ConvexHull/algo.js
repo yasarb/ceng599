@@ -5,14 +5,14 @@ var ConvexHull = {
   ACTION_RECOLOR_LAST: 'recolorLastEdge',
   DEFAULT_NUM_POINTS: 10,
   DEFAULT_CANVAS_WIDTH: 800,
-  DEFAULT_CANVAS_HEIGHT: 600,
+  DEFAULT_CANVAS_HEIGHT: 800,
   canvas: null,
   canvasMargin: 100,
   bbox: {
     xl: 0,
     xr: 800,
     yt: 0,
-    yb: 600
+    yb: 800
   },
   random: Math.random,
   round: Math.round,

@@ -66,7 +66,7 @@ function VoronoiRenderer(props) {
 
   return (
       <div>
-        <canvas ref={canvas} id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width="800" height="600" />
+        <canvas ref={canvas} id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width={Voronoi.DEFAULT_CANVAS_WIDTH} height={Voronoi.DEFAULT_CANVAS_HEIGHT} />
       </div>
   );
 }

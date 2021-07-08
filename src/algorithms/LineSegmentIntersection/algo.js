@@ -7,7 +7,7 @@ var LineSegmentIntersection = {
   EPS: 1E-9,
   DEFAULT_NUM_SEGMENTS: 5,
   DEFAULT_CANVAS_WIDTH: 800,
-  DEFAULT_CANVAS_HEIGHT: 600,
+  DEFAULT_CANVAS_HEIGHT: 800,
   random: self.Math.random,
   round: self.Math.round,
   max: self.Math.max,
@@ -18,7 +18,7 @@ var LineSegmentIntersection = {
     xl: 0,
     xr: 800,
     yt: 0,
-    yb: 600
+    yb: 800
   },
   queue: null,
   status: null,

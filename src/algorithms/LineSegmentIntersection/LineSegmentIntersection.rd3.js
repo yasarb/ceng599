@@ -65,7 +65,7 @@ function LineSegmentIntersectionRenderer(props) {
 
   return (
     <div>
-      <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width="800" height="600" />
+      <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={LineSegmentIntersection.DEFAULT_CANVAS_WIDTH} height={LineSegmentIntersection.DEFAULT_CANVAS_HEIGHT} />
     </div>
   );
 }

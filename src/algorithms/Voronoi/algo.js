@@ -87,14 +87,14 @@ var Voronoi = {
   PI: self.Math.PI,
   isNaN: self.isNaN,
   DEFAULT_CANVAS_WIDTH: 800,
-  DEFAULT_CANVAS_HEIGHT: 600,
+  DEFAULT_CANVAS_HEIGHT: 800,
   canvas: null,
   canvasMargin: 100,
   bbox: {
     xl: 0,
     xr: 800,
     yt: 0,
-    yb: 600
+    yb: 800
   },
 
   //

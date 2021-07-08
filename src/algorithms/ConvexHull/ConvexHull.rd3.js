@@ -64,7 +64,7 @@ function ConvexHullRenderer(props) {
 
   return (
       <div>
-        <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width="800" height="600" />
+        <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width={ConvexHull.DEFAULT_CANVAS_WIDTH} height={ConvexHull.DEFAULT_CANVAS_HEIGHT} />
       </div>
   );
 }
