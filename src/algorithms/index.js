@@ -40,12 +40,12 @@ export const AlgorithmService = {
     switch (algorithmKey) {
       case 'line-segment-intersection':
         codeFile = require('./LineSegmentIntersection/Code').content;
-        licenseFile = require('./LineSegmentIntersection/License').content;
+        // licenseFile = require('./LineSegmentIntersection/License').content;
         readmeFile = require('./LineSegmentIntersection/Readme').content;
         break;
       case 'convex-hull':
         codeFile = require('./ConvexHull/Code').content;
-        licenseFile = require('./ConvexHull/License').content;
+        // licenseFile = require('./ConvexHull/License').content;
         readmeFile = require('./ConvexHull/Readme').content;
         break;
       case 'voronoi':
