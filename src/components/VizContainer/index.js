@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
 import ReactMarkdown from 'react-markdown';
+import rehypeRaw from 'rehype-raw';
 import { AlgorithmService } from 'algorithms';
 import Player from 'components/Player';
 import './VizContainer.scss';
@@ -28,7 +29,11 @@ function VizContainer() {
   return (
     <div className={`viz-container ${isMarkdown ? 'markdownRenderer' : ''}`}>
       { isMarkdown ? (
-        <div><ReactMarkdown>{content}</ReactMarkdown></div>
+        <div>
+          <ReactMarkdown rehypePlugins={rehypeRaw}>
+            {content}
+          </ReactMarkdown>
+          </div>
       ) : (
         <React.Fragment>
           <Player />
