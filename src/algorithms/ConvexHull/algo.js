@@ -78,7 +78,7 @@ var ConvexHull = {
     if (this.canvas) {
       return;
     }
-    var canvas = document.getElementById('voronoiCanvas');
+    var canvas = document.getElementById('lsiCanvas');
     if (!canvas.getContext) {
       return;
     }
@@ -94,6 +94,11 @@ var ConvexHull = {
     ctx.strokeStyle = '#888';
     ctx.stroke();
     this.canvas = canvas;
+  },
+
+  clearCanvas: function() {
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 
   generatePoints: function(n) {

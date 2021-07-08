@@ -3,6 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import ConvexHull from './algo';
+import Toolbar from 'components/Toolbar';
 
 function ConvexHullRenderer(props) {
   
@@ -62,10 +63,40 @@ function ConvexHullRenderer(props) {
     }
   }, [progress]);
 
+  const handleRandom = () => {
+    ConvexHull.clearCanvas();
+    ConvexHull.points = [];
+    ConvexHull.steps = [];
+    ConvexHull.init();
+    ConvexHull.reset();
+    dispatch(setProgress(0));
+  }
+
+  const handleReset = () => {
+    ConvexHull.clearCanvas();
+    ConvexHull.reset();
+    dispatch(setProgress(0));
+  }
+
+  const handleFreehand = () => {
+    console.log('free');
+    ConvexHull.clearCanvas();
+    dispatch(setProgress(0));
+    // TODO
+  }
+
   return (
+    <React.Fragment>
+      <Toolbar 
+        disabled={playing}
+        onReset={handleReset}
+        onRandom={handleRandom}
+        onFreehand={handleFreehand}
+      />
       <div>
-        <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width={ConvexHull.DEFAULT_CANVAS_WIDTH} height={ConvexHull.DEFAULT_CANVAS_HEIGHT} />
+        <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={ConvexHull.DEFAULT_CANVAS_WIDTH} height={ConvexHull.DEFAULT_CANVAS_HEIGHT} />
       </div>
+    </React.Fragment>
   );
 }
 

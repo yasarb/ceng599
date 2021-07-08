@@ -55,7 +55,7 @@ const Player = () => {
         )
       }
       
-      <button className="btn" disabled={!progress} onClick={handlePrev}>
+      <button className="btn" disabled={!progress || playing} onClick={handlePrev}>
         <FontAwesomeIcon icon={faChevronLeft} />
       </button>
       <ProgressBar 
@@ -64,7 +64,7 @@ const Player = () => {
         total={100}
         onChangeProgress={progress => handleChangeProgress(progress)}
       />
-      <button className="btn" disabled={progress >= 100} onClick={handleNext}>
+      <button className="btn" disabled={progress >= 100 || playing} onClick={handleNext} >
         <FontAwesomeIcon icon={faChevronRight} />
       </button>
       <div className={'speed'}>
