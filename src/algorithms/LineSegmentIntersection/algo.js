@@ -94,6 +94,11 @@ var LineSegmentIntersection = {
     this.canvas = canvas;
   },
 
+  clearCanvas: function() {
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
+  },
+
   queueInit: function() {
     this.sweepline = new this.SweepLine('before');
     this.output = new Tree(this.comparePoints, true);

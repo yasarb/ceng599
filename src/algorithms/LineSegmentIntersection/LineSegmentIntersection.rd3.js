@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import LineSegmentIntersection from './algo';
+import Toolbar from 'components/Toolbar';
 
 function LineSegmentIntersectionRenderer(props) {
 
@@ -63,10 +64,35 @@ function LineSegmentIntersectionRenderer(props) {
     }
   }, [progress]);
 
+  const handleRandom = () => {
+    LineSegmentIntersection.clearCanvas();
+    dispatch(setProgress(0));
+    LineSegmentIntersection.init();
+    LineSegmentIntersection.reset();
+  }
+
+  const handleReset = () => {
+    LineSegmentIntersection.clearCanvas();
+    dispatch(setProgress(0));
+    LineSegmentIntersection.reset();
+  }
+
+  const handleFreehand = () => {
+
+  }
+
   return (
-    <div>
-      <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={LineSegmentIntersection.DEFAULT_CANVAS_WIDTH} height={LineSegmentIntersection.DEFAULT_CANVAS_HEIGHT} />
-    </div>
+    <React.Fragment>
+      <Toolbar
+        disabled={playing}
+        onReset={handleReset}
+        onRandom={handleRandom}
+        onFreehand={handleFreehand}
+      />
+      <div>
+        <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={LineSegmentIntersection.DEFAULT_CANVAS_WIDTH} height={LineSegmentIntersection.DEFAULT_CANVAS_HEIGHT} />
+      </div>
+    </React.Fragment>
   );
 }
 
