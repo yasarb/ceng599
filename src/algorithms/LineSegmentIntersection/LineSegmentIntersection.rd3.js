@@ -77,7 +77,7 @@ function LineSegmentIntersectionRenderer(props) {
     LineSegmentIntersection.reset();
   }
 
-  const handleFreehand = () => {
+  const handleClear = () => {
 
   }
 
@@ -87,7 +87,7 @@ function LineSegmentIntersectionRenderer(props) {
         disabled={playing}
         onReset={handleReset}
         onRandom={handleRandom}
-        onFreehand={handleFreehand}
+        onClear={handleClear}
       />
       <div>
         <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={LineSegmentIntersection.DEFAULT_CANVAS_WIDTH} height={LineSegmentIntersection.DEFAULT_CANVAS_HEIGHT} />

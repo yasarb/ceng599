@@ -25,6 +25,10 @@ var ConvexHull = {
   init: function() {
     this.initCanvas();
     this.generatePoints(this.DEFAULT_NUM_POINTS);
+    this.calculateSteps();
+  },
+
+  calculateSteps: function() {
 
     const leftmostPoint = this.minBy(this.points, p => p.x);
     const otherPoints = this.without(this.points, leftmostPoint);
@@ -65,7 +69,6 @@ var ConvexHull = {
       sortedPoints[j] = sortedPoints[i];
       sortedPoints[i] = temp;
     }
-
   },
 
   reset: function() {
@@ -74,8 +77,8 @@ var ConvexHull = {
     this.draw();
   },
 
-  initCanvas: function() {
-    if (this.canvas) {
+  initCanvas: function(refresh = false) {
+    if (!refresh && this.canvas) {
       return;
     }
     var canvas = document.getElementById('lsiCanvas');
@@ -94,6 +97,21 @@ var ConvexHull = {
     ctx.strokeStyle = '#888';
     ctx.stroke();
     this.canvas = canvas;
+
+    var me = this;
+    canvas.onclick = function(e) {
+      var x, y;
+
+      // Get the mouse position relative to the <canvas> element
+      if (e.layerX || e.layerX === 0) { // Firefox
+        x = e.layerX;
+        y = e.layerY;
+      } else if (e.offsetX || e.offsetX === 0) { // Opera
+        x = e.offsetX;
+        y = e.offsetY;
+      }
+      me.addPoint(x, y);
+    };
   },
 
   clearCanvas: function() {
@@ -117,6 +135,13 @@ var ConvexHull = {
     for (var i = 0; i < n; i++) {
       this.points.push(new this.Point(this.round(xo + this.random() * dx), this.round(yo + this.random() * dy)));
     }
+  },
+
+  addPoint: function(x, y) {
+    this.points.push(new this.Point(x, y));
+    this.steps = [];
+    this.calculateSteps();
+    this.reset();
   },
 
   Point: function(x, y) {

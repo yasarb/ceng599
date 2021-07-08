@@ -78,11 +78,12 @@ function ConvexHullRenderer(props) {
     dispatch(setProgress(0));
   }
 
-  const handleFreehand = () => {
-    console.log('free');
+  const handleClear = () => {
+    ConvexHull.points = [];
+    ConvexHull.steps = [];
     ConvexHull.clearCanvas();
+    ConvexHull.initCanvas(true);
     dispatch(setProgress(0));
-    // TODO
   }
 
   return (
@@ -91,7 +92,7 @@ function ConvexHullRenderer(props) {
         disabled={playing}
         onReset={handleReset}
         onRandom={handleRandom}
-        onFreehand={handleFreehand}
+        onClear={handleClear}
       />
       <div>
         <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={ConvexHull.DEFAULT_CANVAS_WIDTH} height={ConvexHull.DEFAULT_CANVAS_HEIGHT} />

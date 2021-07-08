@@ -78,8 +78,11 @@ function VoronoiRenderer(props) {
     Voronoi.reset();
   }
 
-  const handleFreehand = () => {
-
+  const handleClear = () => {
+    Voronoi.sites = [];
+    Voronoi.clearCanvas();
+    Voronoi.initCanvas(true);
+    dispatch(setProgress(0));
   }
 
   return (
@@ -88,7 +91,7 @@ function VoronoiRenderer(props) {
         disabled={playing}
         onReset={handleReset}
         onRandom={handleRandom}
-        onFreehand={handleFreehand}
+        onClear={handleClear}
       />
         <div>
         <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width={Voronoi.DEFAULT_CANVAS_WIDTH} height={Voronoi.DEFAULT_CANVAS_HEIGHT} />

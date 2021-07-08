@@ -1,11 +1,11 @@
 import React from 'react'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faRandom, faPencilAlt, faUndo } from '@fortawesome/free-solid-svg-icons'
+import { faRandom, faTrash, faUndo } from '@fortawesome/free-solid-svg-icons'
 import './Toolbar.scss';
 
 function Toolbar(props) {
   
-  const { disabled, onReset, onRandom, onFreehand } = props;
+  const { disabled, onReset, onRandom, onClear } = props;
 
   return (
     <div className="toolbar-container">
@@ -17,9 +17,9 @@ function Toolbar(props) {
         <FontAwesomeIcon icon={faUndo} />
         Reset
       </button>
-      <button className="btn" disabled={disabled} onClick={onFreehand} >
-        <FontAwesomeIcon icon={faPencilAlt} />
-        Free draw
+      <button className="btn" disabled={disabled} onClick={onClear} >
+        <FontAwesomeIcon icon={faTrash} />
+        Clear
       </button>
     </div>
   );
