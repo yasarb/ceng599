@@ -2,11 +2,16 @@
   "name": "ceng599",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://algoviz.yasarb.dev",
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
+  },
+  "author": {
+    "name": "Yasar Budulgan",
+    "url": "https://github.com/yasarb"
   },
   "eslintConfig": {
     "extends": [
@@ -38,14 +43,13 @@
     "@testing-library/user-event": "^12.1.10",
     "ace-builds": "^1.4.12",
     "avl": "^1.5.1",
-    "bluebird": "^3.7.2",
-    "d3": "^6.7.0",
-    "ngraph.events": "^1.2.1",
     "node-sass": "5.0.0",
     "react": "^17.0.2",
     "react-ace": "^9.4.0",
     "react-dom": "^17.0.2",
+    "react-input-autosize": "^3.0.0",
     "react-input-range": "^1.3.0",
+    "react-markdown": "^6.0.2",
     "react-redux": "^7.2.4",
     "react-resize-panel": "^0.3.5",
     "react-router": "^5.2.0",
