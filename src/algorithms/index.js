@@ -1,9 +1,6 @@
 import {default as LineSegmentIntersectionRenderer } from './LineSegmentIntersection/LineSegmentIntersection.rd3';
-import {default as LineSegmentIntersectionCode } from './LineSegmentIntersection/LineSegmentIntersection.code';
 import {default as ConvexHullRenderer } from './ConvexHull/ConvexHull.rd3.js';
-import {default as ConvexHullCode } from './ConvexHull/ConvexHull.code';
 import {default as VoronoiRenderer } from './Voronoi/Voronoi.rd3';
-import {default as VoronoiCode } from './Voronoi/Voronoi.code';
 
 const algoMapping = [
   {
@@ -28,15 +25,6 @@ export const AlgorithmService = {
   getAlgoTitle: (algorithmKey) => {
     return Object.assign({}, ...algoMapping.map((x) => ({[x.key]: x.name})))[algorithmKey];
   },
-  getAlgoCode: (algorithmKey) => {
-    const mapping = {
-      'line-segment-intersection': LineSegmentIntersectionCode,
-      'convex-hull': ConvexHullCode,
-      'voronoi': VoronoiCode,
-    };
-
-    return mapping[algorithmKey];
-  },
   getAlgoRenderer: (algorithmKey) => {
     const mapping = {
       'line-segment-intersection': LineSegmentIntersectionRenderer,
@@ -46,4 +34,52 @@ export const AlgorithmService = {
 
     return mapping[algorithmKey];
   },
+  getAlgoPages: (algorithmKey) => {
+    let codeFile, licenseFile, readmeFile;
+
+    switch (algorithmKey) {
+      case 'line-segment-intersection':
+        codeFile = require('./LineSegmentIntersection/Code').content;
+        licenseFile = require('./LineSegmentIntersection/License').content;
+        readmeFile = require('./LineSegmentIntersection/Readme').content;
+        break;
+      case 'convex-hull':
+        codeFile = require('./ConvexHull/Code').content;
+        licenseFile = require('./ConvexHull/License').content;
+        readmeFile = require('./ConvexHull/Readme').content;
+        break;
+      case 'voronoi':
+        codeFile = require('./Voronoi/Code').content;
+        licenseFile = require('./Voronoi/License').content;
+        readmeFile = require('./Voronoi/Readme').content;
+        break;
+      default:
+        break;
+    }
+
+    if (algorithmKey) {
+      return {
+        'license' : {
+          'key': 'license',
+          'name': 'License.md',
+          'type': 'markdown',
+          'content': licenseFile
+        },
+        'code' : {
+          'key': 'code',
+          'name': 'Code.js',
+          'type': 'javascript',
+          'content': codeFile
+        },
+        'readme' : {
+          'key': 'readme',
+          'name': 'Readme.md',
+          'type': 'markdown',
+          'content': readmeFile
+        }
+      }
+    }
+
+    return null;
+  }
 };
