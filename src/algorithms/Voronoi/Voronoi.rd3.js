@@ -1,6 +1,6 @@
 /* eslint-disable no-restricted-globals*/
 
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import Voronoi from './algo';
@@ -10,6 +10,7 @@ function VoronoiRenderer(props) {
 
   const { playing, progress, speed } = useSelector(state => state.player);
   const dispatch = useDispatch();
+  const canvas = useRef(null);
 
   let VoronoiAnimateTimer;
   let VoronoiAnimatePixels;
@@ -44,8 +45,8 @@ function VoronoiRenderer(props) {
   }
 
   useEffect(() => {
-    Voronoi.init();
-    Voronoi.reset();
+    Voronoi.init(canvas.current);
+    Voronoi.reset(canvas.current);
   }, []);
 
   useEffect(() => {
@@ -65,7 +66,7 @@ function VoronoiRenderer(props) {
 
   return (
       <div>
-        <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width="800" height="600" />
+        <canvas ref={canvas} id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width="800" height="600" />
       </div>
   );
 }

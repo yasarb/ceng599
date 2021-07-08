@@ -1,4 +1,8 @@
-/* eslint-disable no-restricted-globals*/
+/* eslint-disable no-restricted-globals */
+/* eslint-disable eqeqeq */
+/* eslint-disable no-redeclare */
+/* eslint-disable no-unused-vars */
+
 /*!
 Copyright 2010 Raymond Hill
 
@@ -1367,25 +1371,25 @@ var Voronoi = {
     this.canvas = canvas;
 
     // event handlers
-    var me = this;
-    canvas.onclick = function(e) {
-      if (!e) {
-        e = self.event;
-      }
-      // -----
-      // http://www.quirksmode.org/js/events_properties.html#position
-      var x = 0;
-      var y = 0;
-      if (e.pageX || e.pageY) {
-        x = e.pageX;
-        y = e.pageY;
-      } else if (e.clientX || e.clientY) {
-        x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-      }
-      // -----
-      me.addSite(x - this.offsetLeft, y - this.offsetTop);
-    };
+    // var me = this;
+    // canvas.onclick = function(e) {
+    //   if (!e) {
+    //     e = self.event;
+    //   }
+    //   // -----
+    //   // http://www.quirksmode.org/js/events_properties.html#position
+    //   var x = 0;
+    //   var y = 0;
+    //   if (e.pageX || e.pageY) {
+    //     x = e.pageX;
+    //     y = e.pageY;
+    //   } else if (e.clientX || e.clientY) {
+    //     x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
+    //     y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+    //   }
+    //   // -----
+    //   me.addSite(x - this.offsetLeft, y - this.offsetTop);
+    // };
   },
 
   setCanvasSize: function(w, h) {
