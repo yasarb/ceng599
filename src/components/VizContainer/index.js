@@ -1,27 +1,41 @@
-import React, { useRef, useEffect, useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useSelector } from 'react-redux';
-import * as d3 from 'd3';
+import ReactMarkdown from 'react-markdown';
 import { AlgorithmService } from 'algorithms';
 import Player from 'components/Player';
+import './VizContainer.scss';
 
 function VizContainer() {
-  const { activeAlgorithm } = useSelector(state => state.app);
+  const { activeAlgorithm, activeFile } = useSelector(state => state.app);
   const comp = AlgorithmService.getAlgoRenderer(activeAlgorithm);
-  const ref = useRef(null);
-  const [vertices, setVertices] = useState([]);
+  const [isMarkdown, setIsMarkdown] = useState(true);
+  const [content, setContent] = useState('');
 
   useEffect(() => {
-    if (ref.current) {
-      const randomX = d3.randomInt(ref.current.offsetWidth - 10);
-      const randomY = d3.randomInt(ref.current.offsetHeight - 20);
-      setVertices(d3.range(25).map(function () { return [randomX() + 10, randomY() + 20]; }));
+    const pages = AlgorithmService.getAlgoPages(activeAlgorithm);
+
+    if (pages) {
+      if (pages[activeFile]['type'] === 'markdown') {
+        setIsMarkdown(true);
+        setContent(pages[activeFile]['content']);
+      } else {
+        setIsMarkdown(false);
+        setContent('');
+      }
     }
-  }, []);
+  }, [activeAlgorithm, activeFile])
 
   return (
-    <div className="viz-container" ref={ref}>
-      <Player />
-      { comp && React.createElement(comp, {data: vertices,})}
+    <div className={`viz-container ${isMarkdown ? 'markdownRenderer' : ''}`}>
+      { isMarkdown ? (
+        <ReactMarkdown>{content}</ReactMarkdown>
+      ) : (
+        <React.Fragment>
+          <Player />
+          { comp && React.createElement(comp)}
+        </React.Fragment>
+      )
+    }
     </div>
   );
 }
