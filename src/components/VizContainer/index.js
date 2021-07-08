@@ -28,7 +28,7 @@ function VizContainer() {
   return (
     <div className={`viz-container ${isMarkdown ? 'markdownRenderer' : ''}`}>
       { isMarkdown ? (
-        <ReactMarkdown>{content}</ReactMarkdown>
+        <div><ReactMarkdown>{content}</ReactMarkdown></div>
       ) : (
         <React.Fragment>
           <Player />

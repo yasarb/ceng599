@@ -3,9 +3,10 @@
 .markdownRenderer {
   background-color: $theme-dark;
   width: 100%;
-  height: 100%;
-  margin-top: 32px;
+  height: calc(100% - 31px);
+  margin-top: 31px;
   padding: 24px;
   font-size: 14px;
-  border-bottom: 1px solid #505050;
+  border-top: 1px solid #505050;
+  overflow: auto;
 }

@@ -54,30 +54,41 @@ export const AlgorithmService = {
         readmeFile = require('./Voronoi/Readme').content;
         break;
       default:
+        readmeFile = require('./Homepage/Readme').content;
         break;
     }
 
     if (algorithmKey) {
-      return {
-        'license' : {
+      const data = {};
+
+      if (licenseFile) {
+        data['license'] = {
           'key': 'license',
           'name': 'License.md',
           'type': 'markdown',
           'content': licenseFile
-        },
-        'code' : {
+        };
+      }
+
+      if (codeFile) {
+        data['code'] = {
           'key': 'code',
           'name': 'Code.js',
           'type': 'javascript',
           'content': codeFile
-        },
-        'readme' : {
+        };
+      }
+
+      if (readmeFile) {
+        data['readme'] = {
           'key': 'readme',
           'name': 'Readme.md',
           'type': 'markdown',
           'content': readmeFile
-        }
+        };
       }
+
+      return data;
     }
 
     return null;
