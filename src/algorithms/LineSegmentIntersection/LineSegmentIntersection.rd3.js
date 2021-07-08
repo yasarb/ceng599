@@ -2,6 +2,7 @@
 
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import Tree from 'avl';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import LineSegmentIntersection from './algo';
 import Toolbar from 'components/Toolbar';
@@ -78,7 +79,10 @@ function LineSegmentIntersectionRenderer(props) {
   }
 
   const handleClear = () => {
-
+    LineSegmentIntersection.queueBackup = new Tree(LineSegmentIntersection.comparePoints, true);
+    LineSegmentIntersection.clearCanvas();
+    LineSegmentIntersection.initCanvas(true);
+    dispatch(setProgress(0));
   }
 
   return (
