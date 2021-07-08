@@ -25,6 +25,7 @@ function CodeEditor() {
     <div className="code-editor">
       <AceEditor
         mode={mode}
+        wrapEnabled={mode === 'markdown'}
         theme="monokai"
         name="code-editor"
         editorProps={{ $blockScrolling: true }}
