@@ -1,4 +1,5 @@
-const ConvexHull = `var ConvexHull = {
+module.exports = {
+  content: `var ConvexHull = {
 
   ACTION_ADD_EDGE: 'addEdge',
   ACTION_REMOVE_LAST: 'removeLastEdge',
@@ -260,6 +261,7 @@ const ConvexHull = `var ConvexHull = {
   },
 };
 
-export default ConvexHull;`;
+export default ConvexHull;`,
+};
 
-export default ConvexHull;
+
