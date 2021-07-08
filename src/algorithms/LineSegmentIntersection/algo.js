@@ -89,6 +89,8 @@ var LineSegmentIntersection = {
     }
     canvas.width = canvas.parentNode.offsetWidth ?? this.DEFAULT_CANVAS_WIDTH;
     canvas.height = canvas.parentNode.offsetHeight ?? this.DEFAULT_CANVAS_HEIGHT;
+    this.bbox.xr = canvas.width;
+    this.bbox.yb = canvas.height;
     ctx.fillStyle = '#fff';
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.fill();
