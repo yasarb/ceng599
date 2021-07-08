@@ -2,8 +2,9 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
-import ConvexHull from './algo';
 import Toolbar from 'components/Toolbar';
+import ConvexHull from './algo';
+import './ConvexHull.scss';
 
 function ConvexHullRenderer(props) {
   
@@ -94,8 +95,8 @@ function ConvexHullRenderer(props) {
         onRandom={handleRandom}
         onClear={handleClear}
       />
-      <div>
-        <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={ConvexHull.DEFAULT_CANVAS_WIDTH} height={ConvexHull.DEFAULT_CANVAS_HEIGHT} />
+      <div className='convexHullCanvas'>
+        <canvas id="convexHullCanvas" style={{'cursor' : 'crosshair'}} width={ConvexHull.DEFAULT_CANVAS_WIDTH} height={ConvexHull.DEFAULT_CANVAS_HEIGHT} />
       </div>
     </React.Fragment>
   );

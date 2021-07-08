@@ -3,8 +3,9 @@
 import React, { useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
-import Voronoi from './algo';
 import Toolbar from 'components/Toolbar';
+import Voronoi from './algo';
+import './Voronoi.scss';
 
 
 function VoronoiRenderer(props) {
@@ -93,8 +94,8 @@ function VoronoiRenderer(props) {
         onRandom={handleRandom}
         onClear={handleClear}
       />
-        <div>
-        <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} width={Voronoi.DEFAULT_CANVAS_WIDTH} height={Voronoi.DEFAULT_CANVAS_HEIGHT} />
+      <div className='voronoiCanvas'>
+        <canvas id="voronoiCanvas" style={{'cursor' : 'crosshair'}} />
       </div>
     </React.Fragment>
 

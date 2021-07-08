@@ -4,8 +4,9 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Tree from 'avl';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
-import LineSegmentIntersection from './algo';
 import Toolbar from 'components/Toolbar';
+import LineSegmentIntersection from './algo';
+import './LineSegmentIntersection.scss';
 
 function LineSegmentIntersectionRenderer(props) {
 
@@ -93,7 +94,7 @@ function LineSegmentIntersectionRenderer(props) {
         onRandom={handleRandom}
         onClear={handleClear}
       />
-      <div>
+      <div className='lsiCanvas'>
         <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={LineSegmentIntersection.DEFAULT_CANVAS_WIDTH} height={LineSegmentIntersection.DEFAULT_CANVAS_HEIGHT} />
       </div>
     </React.Fragment>
