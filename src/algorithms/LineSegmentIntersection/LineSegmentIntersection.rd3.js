@@ -95,7 +95,7 @@ function LineSegmentIntersectionRenderer(props) {
         onClear={handleClear}
       />
       <div className='lsiCanvas'>
-        <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} width={LineSegmentIntersection.DEFAULT_CANVAS_WIDTH} height={LineSegmentIntersection.DEFAULT_CANVAS_HEIGHT} />
+        <canvas id="lsiCanvas" style={{'cursor' : 'crosshair'}} />
       </div>
     </React.Fragment>
   );

@@ -18,7 +18,6 @@ function ConvexHullRenderer(props) {
   const ConvexHullAnimateCallback = () => {
     ConvexHullAnimateTimer = undefined;
     ConvexHull.processUpTo(ConvexHull.lastStepId + ConvexHullAnimateId);
-    // ConvexHull.draw();
 
     if (ConvexHull.steps.length < 1) {
       dispatch(setProgress(0));  
@@ -100,7 +99,7 @@ function ConvexHullRenderer(props) {
         onClear={handleClear}
       />
       <div className='convexHullCanvas'>
-        <canvas id="convexHullCanvas" style={{'cursor' : 'crosshair'}} width={ConvexHull.DEFAULT_CANVAS_WIDTH} height={ConvexHull.DEFAULT_CANVAS_HEIGHT} />
+        <canvas id="convexHullCanvas" style={{'cursor' : 'crosshair'}} />
       </div>
     </React.Fragment>
   );

@@ -5,15 +5,16 @@ module.exports = {
   ACTION_REMOVE_LAST: 'removeLastEdge',
   ACTION_RECOLOR_LAST: 'recolorLastEdge',
   DEFAULT_NUM_POINTS: 10,
+  MAX_NUM_POINTS: 30,
   DEFAULT_CANVAS_WIDTH: 800,
-  DEFAULT_CANVAS_HEIGHT: 600,
+  DEFAULT_CANVAS_HEIGHT: 800,
   canvas: null,
   canvasMargin: 100,
   bbox: {
     xl: 0,
     xr: 800,
     yt: 0,
-    yb: 600
+    yb: 800
   },
   random: Math.random,
   round: Math.round,
@@ -26,6 +27,10 @@ module.exports = {
   init: function() {
     this.initCanvas();
     this.generatePoints(this.DEFAULT_NUM_POINTS);
+    this.calculateSteps();
+  },
+
+  calculateSteps: function() {
 
     const leftmostPoint = this.minBy(this.points, p => p.x);
     const otherPoints = this.without(this.points, leftmostPoint);
@@ -66,7 +71,6 @@ module.exports = {
       sortedPoints[j] = sortedPoints[i];
       sortedPoints[i] = temp;
     }
-
   },
 
   reset: function() {
@@ -75,11 +79,11 @@ module.exports = {
     this.draw();
   },
 
-  initCanvas: function() {
-    if (this.canvas) {
+  initCanvas: function(refresh = false) {
+    if (!refresh && this.canvas) {
       return;
     }
-    var canvas = document.getElementById('voronoiCanvas');
+    var canvas = document.getElementById('convexHullCanvas');
     if (!canvas.getContext) {
       return;
     }
@@ -87,14 +91,40 @@ module.exports = {
     if (!ctx) {
       return;
     }
-    canvas.width = this.DEFAULT_CANVAS_WIDTH;
-    canvas.height = this.DEFAULT_CANVAS_HEIGHT;
+    canvas.width = canvas.parentNode.offsetWidth ?? this.DEFAULT_CANVAS_WIDTH;
+    canvas.height = canvas.parentNode.offsetHeight ?? this.DEFAULT_CANVAS_HEIGHT;
+    this.bbox.xr = canvas.width;
+    this.bbox.yb = canvas.height;
     ctx.fillStyle = '#fff';
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.fill();
     ctx.strokeStyle = '#888';
     ctx.stroke();
     this.canvas = canvas;
+
+    var me = this;
+    canvas.onclick = function(e) {
+      var x, y;
+
+      if (me.points.length > me.MAX_NUM_POINTS) {
+        return;
+      }
+
+      // Get the mouse position relative to the <canvas> element
+      if (e.layerX || e.layerX === 0) { // Firefox
+        x = e.layerX;
+        y = e.layerY;
+      } else if (e.offsetX || e.offsetX === 0) { // Opera
+        x = e.offsetX;
+        y = e.offsetY;
+      }
+      me.addPoint(x, y);
+    };
+  },
+
+  clearCanvas: function() {
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 
   generatePoints: function(n) {
@@ -113,6 +143,13 @@ module.exports = {
     for (var i = 0; i < n; i++) {
       this.points.push(new this.Point(this.round(xo + this.random() * dx), this.round(yo + this.random() * dy)));
     }
+  },
+
+  addPoint: function(x, y) {
+    this.points.push(new this.Point(x, y));
+    this.steps = [];
+    this.calculateSteps();
+    this.reset();
   },
 
   Point: function(x, y) {
@@ -223,6 +260,8 @@ module.exports = {
     this.convexHull = [];
     this.lastStepId = 0;
 
+    n = Math.min(n, this.steps.length);
+    
     for (let i = 0; i < n; i++) {
       const step = this.steps[i];
 
@@ -259,9 +298,7 @@ module.exports = {
     this.draw();
     this.lastStepId = this.steps.length;
   },
-};
-
-export default ConvexHull;`,
+};`,
 };
 
 

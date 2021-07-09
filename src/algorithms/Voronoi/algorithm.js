@@ -50,11 +50,7 @@ Update:
 
 */
 
-/*global self */
 var Voronoi = {
-  //
-  // Properties
-  //
   sites: [],
   siteEvents: [],
   circEvents: [],

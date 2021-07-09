@@ -4,8 +4,9 @@ module.exports = {
 var LineSegmentIntersection = {
   EPS: 1E-9,
   DEFAULT_NUM_SEGMENTS: 5,
+  MAX_NUM_SEGMENTS: 20,
   DEFAULT_CANVAS_WIDTH: 800,
-  DEFAULT_CANVAS_HEIGHT: 600,
+  DEFAULT_CANVAS_HEIGHT: 800,
   random: self.Math.random,
   round: self.Math.round,
   max: self.Math.max,
@@ -16,12 +17,15 @@ var LineSegmentIntersection = {
     xl: 0,
     xr: 800,
     yt: 0,
-    yb: 600
+    yb: 800
   },
   queue: null,
   status: null,
   output: null,
   sweepline: null,
+  x0: 0, 
+  y0: 0,
+  drawingStarted: false,
 
   SweepLine: function(position) {
     this.x = 0;
@@ -70,8 +74,8 @@ var LineSegmentIntersection = {
     this.draw();
   },
 
-  initCanvas: function() {
-    if (this.canvas) {
+  initCanvas: function(refresh = false) {
+    if (!refresh && this.canvas) {
       return;
     }
     var canvas = document.getElementById('lsiCanvas');
@@ -82,14 +86,77 @@ var LineSegmentIntersection = {
     if (!ctx) {
       return;
     }
-    canvas.width = this.DEFAULT_CANVAS_WIDTH;
-    canvas.height = this.DEFAULT_CANVAS_HEIGHT;
+    canvas.width = canvas.parentNode.offsetWidth ?? this.DEFAULT_CANVAS_WIDTH;
+    canvas.height = canvas.parentNode.offsetHeight ?? this.DEFAULT_CANVAS_HEIGHT;
+    this.bbox.xr = canvas.width;
+    this.bbox.yb = canvas.height;
     ctx.fillStyle = '#fff';
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.fill();
     ctx.strokeStyle = '#888';
     ctx.stroke();
     this.canvas = canvas;
+
+    const me = this;
+    this.canvas.addEventListener('mousedown', this.handler, false);
+  },
+
+  handler: function(e) {
+    e.preventDefault();
+
+    if (LineSegmentIntersection.queue.size > LineSegmentIntersection.MAX_NUM_SEGMENTS ||
+        LineSegmentIntersection.queueBackup.size > LineSegmentIntersection.MAX_NUM_SEGMENTS ) {
+      
+        return;
+    }
+
+    let x, y;
+    let ctx = LineSegmentIntersection.canvas.getContext('2d');
+
+    if (e.layerX || e.layerX === 0) { // Firefox
+      x = e.layerX;
+      y = e.layerY;
+    } else if (e.offsetX || e.offsetX === 0) { // Opera
+      x = e.offsetX;
+      y = e.offsetY;
+    }
+
+    if (!LineSegmentIntersection.drawingStarted) {
+      // first point of the segment
+      LineSegmentIntersection.x0 = x;
+      LineSegmentIntersection.y0 = y;
+      LineSegmentIntersection.drawingStarted = true;
+      ctx.beginPath();
+      ctx.rect(x - 1, y - 1, 4, 4);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#000';
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.rect(x - 1, y - 1, 4, 4);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#000';
+      ctx.fill();
+
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.strokeStyle = '#888';
+      ctx.moveTo(LineSegmentIntersection.x0 + 1, LineSegmentIntersection.y0 + 1);
+      ctx.lineTo(x + 1, y + 1);
+      ctx.stroke();
+      LineSegmentIntersection.drawingStarted = false;
+      
+      let segmentId = this.queue ? this.queue.size / 2 : 0;
+      LineSegmentIntersection.addOneSegment(segmentId, [[LineSegmentIntersection.x0, LineSegmentIntersection.y0], [x, y]]);
+      LineSegmentIntersection.reset();
+      LineSegmentIntersection.x0 = 0;
+      LineSegmentIntersection.y0 = 0;
+    }  
+  },
+
+  clearCanvas: function() {
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 
   queueInit: function() {
@@ -143,20 +210,25 @@ var LineSegmentIntersection = {
       if (segment.data.segments.length > 0) {
         var segmentStart = segment.data.segments[0][0];
         var segmentEnd = segment.data.segments[0][1];
-        ctx.rect(segmentStart[0] - 1, segmentStart[1] - 1, 4, 4);
-        ctx.rect(segmentEnd[0] - 1, segmentEnd[1] - 1, 4, 4);
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = '#000';
-        ctx.fill();
 
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.moveTo(segmentStart[0] + 1, segmentStart[1] + 1);
-        ctx.lineTo(segmentEnd[0] + 1, segmentEnd[1] + 1);
-        ctx.stroke();
+        this.drawOneSegment(ctx, segmentStart[0], segmentStart[1], segmentEnd[0], segmentEnd[1]);
       }
     }
 
+  },
+
+  drawOneSegment: function(ctx, x1, y1, x2, y2) {
+    ctx.rect(x1 - 1, y1 - 1, 4, 4);
+    ctx.rect(x2 - 1, y2 - 1, 4, 4);
+    ctx.globalAlpha = 1;
+    ctx.fillStyle = '#000';
+    ctx.fill();
+
+    ctx.lineWidth = 1;
+    ctx.beginPath();
+    ctx.moveTo(x1 + 1, y1 + 1);
+    ctx.lineTo(x2 + 1, y2 + 1);
+    ctx.stroke();
   },
 
   drawOutput: function(ctx) {
@@ -205,21 +277,25 @@ var LineSegmentIntersection = {
 
     for (let segmentID in segments) {
       let segment = segments[segmentID];
-      segment[0].ID = segmentID;
-      segment[1].ID = segmentID;
-      segment.sort(this.comparePoints);
-      let begin = new this.Point(segment[0], 'begin', segmentID),
-        end = new this.Point(segment[1], 'end', segmentID);
-
-      this.queue.insert(begin, begin);
-      this.queueBackup.insert(begin, begin);
-
-      begin = this.queue.find(begin).key;
-      begin.segments.push(segment);
-
-      this.queue.insert(end, end);
-      this.queueBackup.insert(end, end);
+      this.addOneSegment(segmentID, segment);
     }
+  },
+
+  addOneSegment: function(segmentID, segment) {
+    segment[0].ID = segmentID;
+    segment[1].ID = segmentID;
+    segment.sort(this.comparePoints);
+    let begin = new this.Point(segment[0], 'begin', segmentID);
+    let end = new this.Point(segment[1], 'end', segmentID);
+
+    this.queue.insert(begin, begin);
+    this.queueBackup.insert(begin, begin);
+
+    begin = this.queue.find(begin).key;
+    begin.segments.push(segment);
+
+    this.queue.insert(end, end);
+    this.queueBackup.insert(end, end);
   },
 
   queueIsEmpty: function() {
@@ -616,7 +692,5 @@ var LineSegmentIntersection = {
       this.processQueueN(999999999);
     }
   },
-};
-
-export default LineSegmentIntersection;`
+};`
 };

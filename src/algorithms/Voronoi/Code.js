@@ -1,8 +1,5 @@
 module.exports = {
   content: `var Voronoi = {
-  //
-  // Properties
-  //
   sites: [],
   siteEvents: [],
   circEvents: [],
@@ -13,6 +10,7 @@ module.exports = {
   CIRCLE_EVENT: 1,
   VOID_EVENT: -1,
   DEFAULT_NUM_SITES: 10,
+  MAX_NUM_SITES: 20,
   NUM_SITES_PROCESSED: 0,
   BINARY_SEARCHES: 0,
   BINARY_SEARCH_ITERATIONS: 0,
@@ -35,14 +33,14 @@ module.exports = {
   PI: self.Math.PI,
   isNaN: self.isNaN,
   DEFAULT_CANVAS_WIDTH: 800,
-  DEFAULT_CANVAS_HEIGHT: 600,
+  DEFAULT_CANVAS_HEIGHT: 800,
   canvas: null,
   canvasMargin: 100,
   bbox: {
     xl: 0,
     xr: 800,
     yt: 0,
-    yb: 600
+    yb: 800
   },
 
   //
@@ -194,9 +192,6 @@ module.exports = {
     return (a - b) < 1e-4;
   },
 
-  //
-  // Sites management methods
-  //
   clearSites: function() {
     this.sites = [];
     this.reset();
@@ -208,7 +203,7 @@ module.exports = {
   addSite: function(x, y) {
     this.sites.push(new this.Site(x, y));
     this.reset();
-    this.processQueueAll();
+    // this.processQueueAll();
   },
 
   generateSites: function(n) {
@@ -228,75 +223,6 @@ module.exports = {
     }
   },
 
-  parseSites: function(s) {
-    // split string into values, eliminate all NaNs
-    var values = s.split(/[^0-9-.+e]+/);
-    var nValues = values.length;
-    var iValue = 0;
-    while (iValue < nValues) {
-      if (this.isNaN(parseFloat(values[iValue]))) {
-        values.splice(iValue, 1);
-        nValues--;
-      } else {
-        iValue++;
-      }
-    }
-    // number of x,y pairs
-    var nPairs = values.length & 0xfffe;
-    var x;
-    var y;
-    for (var iPair = 0; iPair < nPairs; iPair += 2) {
-      x = parseFloat(values[iPair]);
-      y = parseFloat(values[iPair + 1]);
-      if (!this.isNaN(x) && !this.isNaN(y)) {
-        this.sites.push(new this.Site(x, y));
-      }
-    }
-    this.reset();
-    this.processQueueAll();
-  },
-
-  parseLattices: function(s) {
-    // split string into values, eliminate all NaNs
-    var values = s.split(/[^0-9-.+e]+/);
-    var nValues = values.length;
-    var iValue = 0;
-    while (iValue < nValues) {
-      if (this.isNaN(self.parseFloat(values[iValue]))) {
-        values.splice(iValue, 1);
-        nValues--;
-      } else {
-        iValue++;
-      }
-    }
-    // number of quadruplets
-    var nQuads = values.length & 0xfffc;
-    var w = this.canvas.width;
-    var h = this.canvas.height;
-    var offx;
-    var offy;
-    var dx;
-    var dy;
-    for (var iQuad = 0; iQuad < nQuads; iQuad += 4) {
-      offx = self.parseFloat(values[iQuad]);
-      offy = self.parseFloat(values[iQuad + 1]);
-      dx = self.parseFloat(values[iQuad + 2]);
-      dy = self.parseFloat(values[iQuad + 3]);
-      if (!this.isNaN(offx) && !this.isNaN(offy) && !this.isNaN(dx) && !this.isNaN(dy)) {
-        for (var y = offy; y < (h + dy); y += dy) {
-          for (var x = offx; x <= (w + dx); x += dx) {
-            this.sites.push(new this.Site(x, y));
-          }
-        }
-      }
-    }
-    this.reset();
-    this.processQueueAll();
-  },
-
-  //
-  // Fortune algorithm methods
-  //
   reset: function() {
     this.NUM_SITES_PROCESSED = 0;
     this.BINARY_SEARCHES = 0;
@@ -313,6 +239,11 @@ module.exports = {
     this.cellsClosed = false;
     this.queueInit();
     this.draw();
+  },
+
+  clearCanvas: function() {
+    const context = this.canvas.getContext('2d');
+    context.clearRect(0, 0, this.canvas.width, this.canvas.height);
   },
 
   // calculate the left break point of a particular beach section,
@@ -1297,8 +1228,8 @@ module.exports = {
     return this.cells;
   },
 
-  initCanvas: function() {
-    if (this.canvas) {
+  initCanvas: function(refresh = false) {
+    if (!refresh && this.canvas) {
       return;
     }
     var canvas = document.getElementById('voronoiCanvas');
@@ -1309,8 +1240,10 @@ module.exports = {
     if (!ctx) {
       return;
     }
-    canvas.width = this.DEFAULT_CANVAS_WIDTH;
-    canvas.height = this.DEFAULT_CANVAS_HEIGHT;
+    canvas.width = canvas.parentNode.offsetWidth ?? this.DEFAULT_CANVAS_WIDTH;
+    canvas.height = canvas.parentNode.offsetHeight ?? this.DEFAULT_CANVAS_HEIGHT;
+    this.bbox.xr = canvas.width;
+    this.bbox.yb = canvas.height;
     ctx.fillStyle = '#fff';
     ctx.rect(0, 0, canvas.width, canvas.height);
     ctx.fill();
@@ -1321,22 +1254,21 @@ module.exports = {
     // event handlers
     var me = this;
     canvas.onclick = function(e) {
-      if (!e) {
-        e = self.event;
+      var x, y;
+
+      if (me.sites.length > me.MAX_NUM_SITES) {
+        return;
       }
-      // -----
-      // http://www.quirksmode.org/js/events_properties.html#position
-      var x = 0;
-      var y = 0;
-      if (e.pageX || e.pageY) {
-        x = e.pageX;
-        y = e.pageY;
-      } else if (e.clientX || e.clientY) {
-        x = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        y = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
+
+      // Get the mouse position relative to the <canvas> element
+      if (e.layerX || e.layerX === 0) { // Firefox
+        x = e.layerX;
+        y = e.layerY;
+      } else if (e.offsetX || e.offsetX === 0) { // Opera
+        x = e.offsetX;
+        y = e.offsetY;
       }
-      // -----
-      me.addSite(x - this.offsetLeft, y - this.offsetTop);
+      me.addSite(x, y);
     };
   },
 
@@ -1596,7 +1528,5 @@ module.exports = {
     ctx.strokeStyle = '#000';
     ctx.stroke();
   },
-};
-
-export default Voronoi;`
+};`
 };
