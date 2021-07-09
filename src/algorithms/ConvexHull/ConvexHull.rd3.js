@@ -20,7 +20,11 @@ function ConvexHullRenderer(props) {
     ConvexHull.processUpTo(ConvexHull.lastStepId + ConvexHullAnimateId);
     // ConvexHull.draw();
 
-    dispatch(setProgress(ConvexHull.lastStepId * 100 / ConvexHull.steps.length));
+    if (ConvexHull.steps.length < 1) {
+      dispatch(setProgress(0));  
+    } else {
+      dispatch(setProgress(ConvexHull.lastStepId * 100 / ConvexHull.steps.length));
+    }
 
     if (ConvexHull.lastStepId < ConvexHull.steps.length) {
       ConvexHullAnimateTimer = setTimeout(ConvexHullAnimateCallback, ConvexHullAnimateDelay);

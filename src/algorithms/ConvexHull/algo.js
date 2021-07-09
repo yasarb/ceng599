@@ -259,6 +259,8 @@ var ConvexHull = {
     this.convexHull = [];
     this.lastStepId = 0;
 
+    n = Math.min(n, this.steps.length);
+    
     for (let i = 0; i < n; i++) {
       const step = this.steps[i];
 
