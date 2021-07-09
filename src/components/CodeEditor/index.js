@@ -25,6 +25,7 @@ function CodeEditor() {
   return (
     <div className="code-editor">
       <AceEditor
+        setOptions={{ useWorker: false }}
         mode={mode}
         wrapEnabled={mode === 'markdown'}
         theme="monokai"
