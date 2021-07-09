@@ -30,7 +30,7 @@ function VizContainer() {
     <div className={`viz-container ${isMarkdown ? 'markdownRenderer' : ''}`}>
       { isMarkdown ? (
         <div>
-          <ReactMarkdown rehypePlugins={rehypeRaw}>
+          <ReactMarkdown rehypePlugins={[rehypeRaw]}>
             {content}
           </ReactMarkdown>
           </div>
