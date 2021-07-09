@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# Computational Geometry Algorithm Visualizations
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## METU CENG599 Term Project
+
+Yasar Budulgan - 2463941
+
+This website provides an interactive platform to visualize computational geometry algorithms. The main focus of this project is the algorithms using sweep line technique.
+
+<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/home.png?token=AB3XJYJ7DWPXEEGZRWJ4QJDA6BFUS" width="700px"/>
+
 
 ## Available Scripts
 
 In the project directory, you can run:
+
+### `yarn install`
+Installs required dependencies.
 
 ### `yarn start`
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
-
-### `yarn test`
-
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
-
 ### `yarn build`
 
 Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+## Project
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+Currently implemented algorithms:
 
-### `yarn eject`
+* Line Segment Intersection
+* Convex Hull (Graham's Scan)
+* Voronoi Diagram (Bentley-Ottman) 
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+Each algorithm has 2 pages, code and readme, with an optional license file.
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+* Code.js
+  This file contains the implementation of the algorithm.
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+* Readme.md
+  This file contains general information about the algorithm.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+* License.md
+  This file contains the required license declarations for the implementation.
 
-## Learn More
+## Player
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/playbar.png?token=AB3XJYIEHBAS5KYNRSWXO3TA6BG56" height="32px" />
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+### Play Button
+<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/play.png?token=AB3XJYOZIUARBPC5DJZZUYTA6BHBQ" height="32px" />
+<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/playing.png?token=AB3XJYI2ANSNTXR7B2RDLKTA6BHCA" height="32px" />
 
-### Code Splitting
+User can start the visualization by pressing the "Play" button. Once the visualization started, the button turns to "Playing". This version does not support Pause/Resume functionality. In order to advance the visualization, user can use the progress bar.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### Progress Bar
+<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/progressbar.png?token=AB3XJYOF7YYT7E22YVLN7STA6BHDW" height="32px" />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+User can play the visualization back and forward using the progress bar. The left button plays the visualization backward and the right button plays forward. User can also drag the progress bar to play.
 
-### Making a Progressive Web App
+### Speed
+<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/speed.png?token=AB3XJYMZDCWDV5WHSMUGFKLA6BHEW" height="32px" />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+User can adjust the speed of the visualization by using this slider. The leftmost value in slider means the slowest and the rightmost value means the fastest visualization.
 
-### Advanced Configuration
+## Tools
+<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/toolbar.png?token=AB3XJYNPLMXMCB76SVR2QXTA6BHF2" height="32px" />
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+### Random
+  This button clears the scene and adds new randomly generated input data.
 
-### Deployment
+### Reset
+  This button resets the progress. Input data is preserved.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `yarn build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+### Clear
+  This button clears the scene. User can add custom data by clicking the canvas. In order to add a point, one click to canvas is required. For drawing a line, two clicks are required. After the second click, line will be visible.
