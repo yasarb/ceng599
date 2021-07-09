@@ -76,3 +76,4 @@ User can adjust the speed of the visualization by using this slider. The leftmos
 
 ### Clear
   This button clears the scene. User can add custom data by clicking the canvas. In order to add a point, one click to canvas is required. For drawing a line, two clicks are required. After the second click, line will be visible.
+
