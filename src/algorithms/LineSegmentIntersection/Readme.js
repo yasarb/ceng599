@@ -5,7 +5,7 @@ The **multiple line segment intersection** problem supplies a list of line segme
 
 Simple algorithms examine each pair of segments. However, if a large number of possibly intersecting segments are to be checked, this becomes increasingly inefficient since most pairs of segments are not close to one another in a typical input sequence. The most common, and more efficient, way to solve this problem for a high number of segments is to use a sweep line algorithm, where we imagine a line sliding across the line segments and we track which line segments it intersects at each point in time using a dynamic data structure based on binary search trees. The Shamos–Hoey algorithm applies this principle to solve the line segment intersection detection problem, as stated above, of determining whether or not a set of line segments has an intersection; the Bentley–Ottmann algorithm works by the same principle to list all intersections in logarithmic time per intersection.  
 
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/lineseg.png?token=AB3XJYMC5CDXXTAKHPQLHELA6E5UA" width="500px" />
+<img src="https://github.com/yasarb/ceng599/blob/65b5be7f998cae45998f4cd37af71475f77a7c79/assets/img/lineseg.png" width="500px" />
 
 ## Bentley–Ottmann Algorithm
 
