@@ -6,6 +6,7 @@ import Tree from 'avl';
 var LineSegmentIntersection = {
   EPS: 1E-9,
   DEFAULT_NUM_SEGMENTS: 5,
+  MAX_NUM_SEGMENTS: 20,
   DEFAULT_CANVAS_WIDTH: 800,
   DEFAULT_CANVAS_HEIGHT: 800,
   random: self.Math.random,
@@ -104,48 +105,55 @@ var LineSegmentIntersection = {
 
   handler: function(e) {
     e.preventDefault();
-      let x, y;
-      let ctx = LineSegmentIntersection.canvas.getContext('2d');
 
-      if (e.layerX || e.layerX === 0) { // Firefox
-        x = e.layerX;
-        y = e.layerY;
-      } else if (e.offsetX || e.offsetX === 0) { // Opera
-        x = e.offsetX;
-        y = e.offsetY;
-      }
-  
-      if (!LineSegmentIntersection.drawingStarted) {
-        // first point of the segment
-        LineSegmentIntersection.x0 = x;
-        LineSegmentIntersection.y0 = y;
-        LineSegmentIntersection.drawingStarted = true;
-        ctx.beginPath();
-        ctx.rect(x - 1, y - 1, 4, 4);
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = '#000';
-        ctx.fill();
-      } else {
-        ctx.beginPath();
-        ctx.rect(x - 1, y - 1, 4, 4);
-        ctx.globalAlpha = 1;
-        ctx.fillStyle = '#000';
-        ctx.fill();
+    if (LineSegmentIntersection.queue.size > LineSegmentIntersection.MAX_NUM_SEGMENTS ||
+        LineSegmentIntersection.queueBackup.size > LineSegmentIntersection.MAX_NUM_SEGMENTS ) {
+      
+        return;
+    }
 
-        ctx.lineWidth = 1;
-        ctx.beginPath();
-        ctx.strokeStyle = '#888';
-        ctx.moveTo(LineSegmentIntersection.x0 + 1, LineSegmentIntersection.y0 + 1);
-        ctx.lineTo(x + 1, y + 1);
-        ctx.stroke();
-        LineSegmentIntersection.drawingStarted = false;
-        
-        let segmentId = this.queue ? this.queue.size / 2 : 0;
-        LineSegmentIntersection.addOneSegment(segmentId, [[LineSegmentIntersection.x0, LineSegmentIntersection.y0], [x, y]]);
-        LineSegmentIntersection.reset();
-        LineSegmentIntersection.x0 = 0;
-        LineSegmentIntersection.y0 = 0;
-      }  
+    let x, y;
+    let ctx = LineSegmentIntersection.canvas.getContext('2d');
+
+    if (e.layerX || e.layerX === 0) { // Firefox
+      x = e.layerX;
+      y = e.layerY;
+    } else if (e.offsetX || e.offsetX === 0) { // Opera
+      x = e.offsetX;
+      y = e.offsetY;
+    }
+
+    if (!LineSegmentIntersection.drawingStarted) {
+      // first point of the segment
+      LineSegmentIntersection.x0 = x;
+      LineSegmentIntersection.y0 = y;
+      LineSegmentIntersection.drawingStarted = true;
+      ctx.beginPath();
+      ctx.rect(x - 1, y - 1, 4, 4);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#000';
+      ctx.fill();
+    } else {
+      ctx.beginPath();
+      ctx.rect(x - 1, y - 1, 4, 4);
+      ctx.globalAlpha = 1;
+      ctx.fillStyle = '#000';
+      ctx.fill();
+
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.strokeStyle = '#888';
+      ctx.moveTo(LineSegmentIntersection.x0 + 1, LineSegmentIntersection.y0 + 1);
+      ctx.lineTo(x + 1, y + 1);
+      ctx.stroke();
+      LineSegmentIntersection.drawingStarted = false;
+      
+      let segmentId = this.queue ? this.queue.size / 2 : 0;
+      LineSegmentIntersection.addOneSegment(segmentId, [[LineSegmentIntersection.x0, LineSegmentIntersection.y0], [x, y]]);
+      LineSegmentIntersection.reset();
+      LineSegmentIntersection.x0 = 0;
+      LineSegmentIntersection.y0 = 0;
+    }  
   },
 
   clearCanvas: function() {

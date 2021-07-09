@@ -4,6 +4,7 @@ var ConvexHull = {
   ACTION_REMOVE_LAST: 'removeLastEdge',
   ACTION_RECOLOR_LAST: 'recolorLastEdge',
   DEFAULT_NUM_POINTS: 10,
+  MAX_NUM_POINTS: 30,
   DEFAULT_CANVAS_WIDTH: 800,
   DEFAULT_CANVAS_HEIGHT: 800,
   canvas: null,
@@ -103,6 +104,10 @@ var ConvexHull = {
     var me = this;
     canvas.onclick = function(e) {
       var x, y;
+
+      if (me.points.length > me.MAX_NUM_POINTS) {
+        return;
+      }
 
       // Get the mouse position relative to the <canvas> element
       if (e.layerX || e.layerX === 0) { // Firefox

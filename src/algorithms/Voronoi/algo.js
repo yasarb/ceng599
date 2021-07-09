@@ -65,6 +65,7 @@ var Voronoi = {
   CIRCLE_EVENT: 1,
   VOID_EVENT: -1,
   DEFAULT_NUM_SITES: 10,
+  MAX_NUM_SITES: 20,
   NUM_SITES_PROCESSED: 0,
   BINARY_SEARCHES: 0,
   BINARY_SEARCH_ITERATIONS: 0,
@@ -1309,6 +1310,10 @@ var Voronoi = {
     var me = this;
     canvas.onclick = function(e) {
       var x, y;
+
+      if (me.sites.length > me.MAX_NUM_SITES) {
+        return;
+      }
 
       // Get the mouse position relative to the <canvas> element
       if (e.layerX || e.layerX === 0) { // Firefox
