@@ -5,7 +5,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import Tree from 'avl';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import Toolbar from 'components/Toolbar';
-import LineSegmentIntersection from './algo';
+import LineSegmentIntersection from './algorithm';
 import './LineSegmentIntersection.scss';
 
 function LineSegmentIntersectionRenderer(props) {

@@ -4,7 +4,7 @@ import React, { useEffect} from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import Toolbar from 'components/Toolbar';
-import Voronoi from './algo';
+import Voronoi from './algorithm';
 import './Voronoi.scss';
 
 

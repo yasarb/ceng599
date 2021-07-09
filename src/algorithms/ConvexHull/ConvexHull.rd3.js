@@ -3,7 +3,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { togglePlay, setProgress } from 'components/Player/Player.slice';
 import Toolbar from 'components/Toolbar';
-import ConvexHull from './algo';
+import ConvexHull from './algorithm';
 import './ConvexHull.scss';
 
 function ConvexHullRenderer(props) {
