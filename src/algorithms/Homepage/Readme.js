@@ -7,7 +7,7 @@ Yasar Budulgan - 2463941
 
 This website provides an interactive platform to visualize computational geometry algorithms. The main focus of this project is the algorithms using sweep line technique.
 
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/home.png?token=AB3XJYJ7DWPXEEGZRWJ4QJDA6BFUS" width="700px"/>
+<img src="https://res.cloudinary.com/yasarb/image/upload/v1628003540/Algoviz/home_ujixhn.png" width="700px"/>
 
 Currently implemented algorithms:
 
@@ -28,27 +28,27 @@ Each algorithm has 2 pages, code and readme, with an optional license file.
 
 ## Player
 
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/playbar.png?token=AB3XJYIEHBAS5KYNRSWXO3TA6BG56" height="32px" />
+<img src="https://res.cloudinary.com/yasarb/image/upload/v1628003537/Algoviz/playbar_ah6nit.png" height="32px" />
 
 ### Play Button
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/play.png?token=AB3XJYOZIUARBPC5DJZZUYTA6BHBQ" height="32px" />
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/playing.png?token=AB3XJYI2ANSNTXR7B2RDLKTA6BHCA" height="32px" />
+<img src="https://res.cloudinary.com/yasarb/image/upload/v1628003537/Algoviz/play_d3rbvr.png" height="32px" />
+<img src="https://res.cloudinary.com/yasarb/image/upload/v1628003536/Algoviz/playing_nggr5g.png" height="32px" />
 
 User can start the visualization by pressing the "Play" button. Once the visualization started, the button turns to "Playing". This version does not support Pause/Resume functionality. In order to advance the visualization, user can use the progress bar.
 
 
 ### Progress Bar
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/progressbar.png?token=AB3XJYOF7YYT7E22YVLN7STA6BHDW" height="32px" />
+<img src="https://res.cloudinary.com/yasarb/image/upload/v1628003538/Algoviz/progressbar_yheyrn.png" height="32px" />
 
 User can play the visualization back and forward using the progress bar. The left button plays the visualization backward and the right button plays forward. User can also drag the progress bar to play.
 
 ### Speed
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/speed.png?token=AB3XJYMZDCWDV5WHSMUGFKLA6BHEW" height="32px" />
+<img src="https://res.cloudinary.com/yasarb/image/upload/v1628003537/Algoviz/speed_y21qyz.png" height="32px" />
 
 User can adjust the speed of the visualization by using this slider. The leftmost value in slider means the slowest and the rightmost value means the fastest visualization.
 
 ## Tools
-<img src="https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/toolbar.png?token=AB3XJYNPLMXMCB76SVR2QXTA6BHF2" height="32px" />
+<img src="https://res.cloudinary.com/yasarb/image/upload/v1628003537/Algoviz/toolbar_occz5t.png" height="32px" />
 
 ### Random
   This button clears the scene and adds new randomly generated input data.
