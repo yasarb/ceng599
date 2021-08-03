@@ -3,7 +3,7 @@ module.exports = {
 
 The **convex hull** or **convex envelope** or **convex closure** of a shape is the smallest convex set that contains it. The convex hull may be defined either as the intersection of all convex sets containing a given subset of a Euclidean space, or equivalently as the set of all convex combinations of points in the subset. For a bounded subset of the plane, the convex hull may be visualized as the shape enclosed by a rubber band stretched around the subset.
 
-![ConvexHull1](https://raw.githubusercontent.com/yasarb/ceng599/master/assets/img/convexhull.png?token=AB3XJYJNY2DRGBC5YD6QXO3A6E5QQ)
+![ConvexHull1](https://res.cloudinary.com/yasarb/image/upload/v1628003538/Algoviz/convexhull_lz7kzx.png)
 
 ## Graham's Scan Algorithm
 **Graham's scan** is a method of finding the convex hull of a finite set of points in the plane with time complexity *O(n log n)*. It is named after Ronald Graham, who published the original algorithm in 1972. The algorithm finds all vertices of the convex hull ordered along its boundary. It uses a stack to detect and remove concavities in the boundary efficiently.
